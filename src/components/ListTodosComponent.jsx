@@ -20,9 +20,7 @@ export default function List(){
             .catch((err) => console.log(err))
     }
 
-    useEffect(
-        () => refreshTodos()
-    )
+    useEffect(() => refreshTodos(), [])
 
     function deleteTodo(id){
         deleteTodoForIdApi(auth.username,id)

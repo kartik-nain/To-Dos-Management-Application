@@ -35,7 +35,7 @@ export default function Header() {
                                 {!authContext.isAuthenticated && <Link className="nav-link" to="/register">Register</Link>}
                             </li>
                             <li className="nav-item fs-5">
-                                {authContext.isAuthenticated && <Link className="nav-link" to="/logout" onClick={authContext.logout}>Logout</Link>}
+                                {authContext.isAuthenticated && <Link className="nav-link" onClick={authContext.logout}>Logout</Link>}
                             </li>
                         </ul>
                     </nav>

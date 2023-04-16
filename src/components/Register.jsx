@@ -7,16 +7,39 @@ export default function RegisterComponent() {
     const [lastname, setLastname] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [successMessage, setSuccessMessage] = useState(false)
-    const [failMessage, setFailMessage] = useState(false)
+    const [hasSucceeded, setHasSucceeded] = useState(false)
+    const [hasFailed, setHasFailed] = useState(false)
+    const [successMessage, setSuccessMessage] = useState('')
+    const [failMessage, setFailMessage] = useState('')
 
-    function handleSubmit(values) {
-        if (executeRegistrationService(values.firstname, values.lastname, values.username, values.password)) {
-            setSuccessMessage(true)
-        } else {
-            setFailMessage(true)
-            console.log("Error")
+    async function handleSubmit(values) {
+        const res = await executeRegistrationService(values.firstname, values.lastname, values.username, values.password)
+        if(res=="User Registered Successfully"){
+            setSuccessMessage(res)
+            setHasFailed(false)
+            setHasSucceeded(true)
+        }else{
+            setFailMessage(res)
+            setHasSucceeded(false)
+            setHasFailed(true)
         }
+    }
+
+    function validate(values){
+        let errors = {}
+        if(values.firstname == null || values.firstname==''){
+            errors.firstname='Please enter a First Name'
+        }
+        if(values.lastname == null || values.lastname==''){
+            errors.lastname='Please enter a Last Name'
+        }
+        if (values.username == null || values.username == '') {
+            errors.username = 'Please enter a username'
+        }
+        if (values.password == null || values.password == '') {
+            errors.password = 'Please enter a password'
+        }
+        return errors
     }
 
     return (
@@ -24,10 +47,12 @@ export default function RegisterComponent() {
             <h1>Time To Register!</h1><br></br>
             <div className="row justify-content-center">
                 <div className="RegisterForm">
-                    <Formik initialValues={{ firstname, lastname, username, password }} onSubmit={handleSubmit}>
+                    <Formik initialValues={{ firstname, lastname, username, password }} onSubmit={handleSubmit} enableReinitialize={true} validate={validate} validateOnBlur={false} validateOnChange={false}>
                         {
                             (props) => (
                                 <Form>
+                                    <ErrorMessage name="firstname" component="div" className="alert alert-warning" />
+                                    <ErrorMessage name="lastname" component="div" className="alert alert-warning" />
                                     <ErrorMessage name="username" component="div" className="alert alert-warning" />
                                     <ErrorMessage name="password" component="div" className="alert alert-warning" />
                                     <fieldset className="form-group">
@@ -49,8 +74,8 @@ export default function RegisterComponent() {
                                     <div>
                                         <button className="btn btn-primary m-4" type="submit">Register</button>
                                     </div>
-                                    {failMessage && <div className="alert alert-danger"><div className="failMessage">Authentication Failed. Please try again.</div></div>}
-                                    {successMessage && <div className="alert alert-success"><div className="successMessage">Registration Successful. Please login.</div></div>}
+                                    {hasFailed && <div className="alert alert-danger"><div className="failMessage">{failMessage}</div></div>}
+                                    {hasSucceeded && <div className="alert alert-success"><div className="successMessage">{successMessage}</div></div>}
                                 </Form>
                             )
                         }

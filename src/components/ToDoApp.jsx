@@ -4,7 +4,6 @@ import Error from './ErrorComponent'
 import ListTodos from './ListTodosComponent'
 import Header from './HeaderComponent';
 import Footer from './Footer';
-import Logout from './LogoutComponent';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AuthContextProvider from './security/AuthContext'
 import { useAuth } from './security/AuthContext'
@@ -40,12 +39,6 @@ export default function ToDoApp() {
                         <Route path='/todos' element={
                             <AuthenticatedRoute>
                                 <ListTodos />
-                            </AuthenticatedRoute>
-                        } />
-
-                        <Route path='/logout' element={
-                            <AuthenticatedRoute>
-                                <Logout />
                             </AuthenticatedRoute>
                         } />
 

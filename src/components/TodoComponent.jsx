@@ -54,7 +54,7 @@ export default function Todo(){
     function validate(values){
         let errors = {}
         if(values.description.length < 5){
-            errors.description = 'Enter atleast 5 characters'
+            errors.description = 'Enter atleast 5 characters in Description'
         }
         if(values.targetDate == null || values.targetDate=='' || !moment(values.targetDate).isValid()){
             errors.description = 'Enter target date'

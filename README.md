@@ -6,5 +6,5 @@ This repository contains the frontend implementation of a Todo Management Applic
 * AWS S3
 * RESTful APIs
 
-Contributing
+## Contributing
 If you would like to contribute to this project, please feel free to submit a pull request.

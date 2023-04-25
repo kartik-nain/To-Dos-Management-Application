@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { retrieveTodoByIdApi, updateTodoByIdApi, createTodoApi } from "./api/TodoApiService"
 import { useAuth } from "./security/AuthContext"
 import { useEffect, useState } from "react"
@@ -13,6 +13,8 @@ export default function Todo(){
 
     const [description, setDescription] = useState('')
     const [targetDate, setTargetDate] = useState('')
+    const [hasSucceeded, setHasSucceeded] = useState(false)
+    const [hasFailed, setHasFailed] = useState(false)
 
     function getToDoById(){
         if(id!=-1){
@@ -27,7 +29,6 @@ export default function Todo(){
 
     useEffect(() => getToDoById(), [id])
 
-    const navigate = useNavigate()
     function onSubmit(values){
         console.log(values)
         const todo = {
@@ -40,15 +41,30 @@ export default function Todo(){
 
         if(id==-1){
             createTodoApi(username, todo)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err))
+                .then((res) => {
+                    console.log(res)
+                    setHasFailed(false)
+                    setHasSucceeded(true)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    setHasFailed(true)
+                    setHasSucceeded(false)
+                })
         }else{
             updateTodoByIdApi(username, id, todo)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err))
+            .then((res) => {
+                console.log(res)
+                setHasFailed(false)
+                setHasSucceeded(true)
+            })
+            .catch((err) => {
+                console.log(err)
+                setHasFailed(true)
+                setHasSucceeded(false)
+            })
         }
-        
-        navigate('/todos')
+
     }
 
     function validate(values){
@@ -83,6 +99,8 @@ export default function Todo(){
                                 <div>
                                     <button className="btn btn-success m-5" type="submit">Save</button>
                                 </div>
+                                {hasFailed && <div className="alert alert-danger"><div className="failMessage">Error!</div></div>}
+                                {hasSucceeded && <div className="alert alert-success"><div className="successMessage">Success!</div></div>}
                             </Form>
                         )
                     }

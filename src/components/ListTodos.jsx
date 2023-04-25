@@ -3,11 +3,8 @@ import { retrieveAllTodosForUsernameApi, deleteTodoForIdApi} from "./api/TodoApi
 import { useAuth } from './security/AuthContext'
 import { useNavigate } from "react-router-dom"
 
-export default function List(){
-    // const todos = [
-    //     {id:1, description: `ab`},
-    //     {id:2, description: `cd`}
-    // ]
+export default function ListComponent(){
+
     const [todos, setTodos] = useState([])
 
     const auth = useAuth()

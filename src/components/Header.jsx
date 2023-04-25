@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from './security/AuthContext'
 import logo from '../assets/logo-no-background.png'
 
-export default function Header() {
+export default function HeaderComponent() {
     //const auth = useContext(AuthContext)
     const authContext = useAuth()
     

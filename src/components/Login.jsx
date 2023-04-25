@@ -4,7 +4,7 @@ import { useAuth } from "./security/AuthContext"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function LoginComponent() {
 
     const [username, setUsername] = useState('')
 

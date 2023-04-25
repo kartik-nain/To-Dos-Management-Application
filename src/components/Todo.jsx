@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import moment from "moment/moment";
 
-export default function Todo(){
+export default function TodoComponent(){
 
     const {id} = useParams()
     const auth = useAuth()

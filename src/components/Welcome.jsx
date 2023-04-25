@@ -1,9 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 
-
-
-export default function Welcome() {
+export default function WelcomeComponent() {
     const { username } = useParams();
 
     const [message, setMessage] = useState(null)

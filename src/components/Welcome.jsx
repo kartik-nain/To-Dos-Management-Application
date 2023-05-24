@@ -38,7 +38,7 @@ export default function WelcomeComponent() {
                         <div class="card-body">
                             <h5 class="card-title">Add a new To-Do</h5>
                             <p class="card-text">Add a new one</p>
-                            <Link to='/todo/:id' className="btn btn-primary">Add</Link>
+                            <Link to='/todo/-1' className="btn btn-primary">Add</Link>
                         </div>
                     </div>
                 </div>
